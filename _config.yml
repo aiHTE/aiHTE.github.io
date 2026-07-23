@@ -1,6 +1,48 @@
-#theme: jekyll-theme-minimal
 title: Causes and Conditions
-description: Causality and Child Development
-remote_theme: pages-themes/minimal@v0.2.0
+description: R notebooks on causal inference, public datasets, and the methods that connect them.
+url: "https://causesandconditions.com"
+baseurl: ""
+
+# Build settings — GitHub Pages default pipeline, no custom plugins needed
+markdown: kramdown
+highlighter: rouge
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections: drop a .md file into _datasets or _methodology and it
+# automatically gets a page and appears on its section index.
+collections:
+  datasets:
+    output: true
+    permalink: /datasets/:name/
+  methodology:
+    output: true
+    permalink: /methodology/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: datasets
+    values:
+      layout: dataset
+  - scope:
+      path: ""
+      type: methodology
+    values:
+      layout: methodology
+
+# Number of post cards shown on the Home page
+home_post_limit: 6
+
+# Keep R notebook sources in the repo without publishing them
+exclude:
+  - _source/
+  - README.md
+  - Gemfile
+  - Gemfile.lock

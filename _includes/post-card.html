@@ -1,0 +1,31 @@
+{% comment %}
+  Renders one blog card. Usage: {% include post-card.html post=p %}
+  Front matter used: title, image (optional), abstract (optional, ~200 words),
+  date. Falls back to auto-excerpt if no abstract. The whole card links to
+  the full post.
+{% endcomment %}
+<article class="card">
+  <a class="card-link" href="{{ include.post.url | relative_url }}">
+    <div class="card-media">
+      {% if include.post.image %}
+        <img src="{{ include.post.image | relative_url }}" alt="{{ include.post.title | escape }}" loading="lazy">
+      {% else %}
+        <div class="card-media-fallback" aria-hidden="true">
+          <span>{{ include.post.title | slice: 0, 1 }}</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <p class="card-date">{{ include.post.date | date: "%B %-d, %Y" }}</p>
+      <h3 class="card-title">{{ include.post.title }}</h3>
+      <p class="card-abstract">
+        {% if include.post.abstract %}
+          {{ include.post.abstract | truncatewords: 200 }}
+        {% else %}
+          {{ include.post.excerpt | strip_html | truncatewords: 60 }}
+        {% endif %}
+      </p>
+      <span class="card-more">Read the full post &rarr;</span>
+    </div>
+  </a>
+</article>

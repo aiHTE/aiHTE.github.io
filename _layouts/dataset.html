@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<article class="wrap article">
+  <header class="article-header">
+    <p class="eyebrow">Dataset</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.source_name %}
+      <p class="meta-line">Source:
+        {% if page.source_url %}<a href="{{ page.source_url }}">{{ page.source_name }}</a>
+        {% else %}{{ page.source_name }}{% endif %}
+        {% if page.years %} &middot; {{ page.years }}{% endif %}
+        {% if page.license %} &middot; {{ page.license }}{% endif %}
+      </p>
+    {% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  {% comment %} Reverse lookup: which methodology pages declare this dataset? {% endcomment %}
+  {% assign users = "" | split: "" %}
+  {% for m in site.methodology %}
+    {% if m.datasets contains page.slug %}
+      {% assign users = users | push: m %}
+    {% endif %}
+  {% endfor %}
+  {% if users.size > 0 %}
+  <aside class="article-related">
+    <p><strong>Methodologies using this dataset:</strong>
+    {% for m in users %}
+      <a href="{{ m.url | relative_url }}">{{ m.title }}</a>{% unless forloop.last %}, {% endunless %}
+    {% endfor %}</p>
+  </aside>
+  {% endif %}
+</article>

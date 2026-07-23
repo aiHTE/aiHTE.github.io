@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="wrap">
+    <h1 class="hero-title">Causes <em>and</em> Conditions</h1>
+    <p class="hero-sub">{{ site.description }}</p>
+  </div>
+</section>
+
+{{ content }}
+
+<section class="wrap">
+  <div class="section-head">
+    <h2>Recent posts</h2>
+    <a class="see-all" href="{{ '/posts/' | relative_url }}">All posts &rarr;</a>
+  </div>
+  <div class="card-grid">
+    {% for post in site.posts limit: site.home_post_limit %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+</section>

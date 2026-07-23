@@ -1,0 +1,23 @@
+---
+layout: default
+title: Datasets
+permalink: /datasets/
+---
+<section class="wrap">
+  <header class="page-head">
+    <h1>Datasets</h1>
+    <p class="page-sub">Public-domain data sources used across the site, with notes on structure, quirks, and access.</p>
+  </header>
+  <ul class="index-list">
+    {% assign items = site.datasets | sort: "title" %}
+    {% for d in items %}
+    <li class="index-item">
+      <a class="index-link" href="{{ d.url | relative_url }}">
+        <h2>{{ d.title }}</h2>
+        {% if d.blurb %}<p>{{ d.blurb }}</p>{% endif %}
+        {% if d.source_name %}<p class="meta-line">{{ d.source_name }}{% if d.years %} &middot; {{ d.years }}{% endif %}</p>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

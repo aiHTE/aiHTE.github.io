@@ -1,0 +1,30 @@
+---
+layout: default
+title: Methodology
+permalink: /methodology/
+---
+<section class="wrap">
+  <header class="page-head">
+    <h1>Methodology</h1>
+    <p class="page-sub">One page per method: the estimand, the assumptions, the R implementation, and the datasets it has been applied to.</p>
+  </header>
+  <ul class="index-list">
+    {% assign items = site.methodology | sort: "title" %}
+    {% for m in items %}
+    <li class="index-item">
+      <a class="index-link" href="{{ m.url | relative_url }}">
+        <h2>{{ m.title }}</h2>
+        {% if m.summary %}<p>{{ m.summary }}</p>{% endif %}
+        {% if m.datasets %}
+          <p class="meta-line">Uses:
+          {% for slug in m.datasets %}
+            {% assign d = site.datasets | where: "slug", slug | first %}
+            {% if d %}{{ d.title }}{% unless forloop.last %}, {% endunless %}{% endif %}
+          {% endfor %}
+          </p>
+        {% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

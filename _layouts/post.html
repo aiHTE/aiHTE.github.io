@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<article class="wrap article">
+  <header class="article-header">
+    <p class="card-date">{{ page.date | date: "%B %-d, %Y" }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.abstract %}<p class="article-abstract">{{ page.abstract }}</p>{% endif %}
+  </header>
+
+  {% if page.image %}
+    <figure class="article-hero">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title | escape }}">
+    </figure>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  {% if page.methodology or page.datasets %}
+  <aside class="article-related">
+    {% if page.methodology %}
+      <p><strong>Methods used:</strong>
+      {% for slug in page.methodology %}
+        {% assign m = site.methodology | where: "slug", slug | first %}
+        {% if m %}<a href="{{ m.url | relative_url }}">{{ m.title }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}
+      {% endfor %}</p>
+    {% endif %}
+    {% if page.datasets %}
+      <p><strong>Data:</strong>
+      {% for slug in page.datasets %}
+        {% assign d = site.datasets | where: "slug", slug | first %}
+        {% if d %}<a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}
+      {% endfor %}</p>
+    {% endif %}
+  </aside>
+  {% endif %}
+</article>

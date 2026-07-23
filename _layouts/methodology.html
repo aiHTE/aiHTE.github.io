@@ -1,0 +1,31 @@
+---
+layout: default
+---
+<article class="wrap article">
+  <header class="article-header">
+    <p class="eyebrow">Methodology</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="article-abstract">{{ page.summary }}</p>{% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  {% if page.datasets %}
+  <aside class="article-related">
+    <h2 class="related-title">Datasets used with this method</h2>
+    <ul class="related-list">
+      {% for slug in page.datasets %}
+        {% assign d = site.datasets | where: "slug", slug | first %}
+        {% if d %}
+          <li>
+            <a href="{{ d.url | relative_url }}">{{ d.title }}</a>
+            {% if d.blurb %}<span class="related-blurb"> — {{ d.blurb }}</span>{% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+</article>
